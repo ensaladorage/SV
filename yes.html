@@ -3,8 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Si!</title>
+    <title>¡Dijo que SÍ! ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffebee; /* Rosa muy claro */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; /* Evita que aparezcan barras de scroll con los corazones */
+        }
+
+        h1 {
+            color: #d32f2f;
+            font-size: 3rem;
+            text-align: center;
+            z-index: 10; /* Asegura que el texto esté por encima de los corazones */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .heart {
+            position: absolute;
+            color: #f44336;
+            font-size: 20px;
+            user-select: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh);
+            }
+        }
+    </style>
 </head>
 <body>
+
+    <h1>¡Sabía que dirías que sí! ❤️</h1>
+    <p style="font-size: 1.5rem; color: #555; z-index: 10;">Nos vemos en San Valentín.</p>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            
+            // Posición horizontal aleatoria
+            heart.style.left = Math.random() * 100 + "vw";
+            
+            // Tamaño aleatorio
+            heart.style.fontSize = Math.random() * 20 + 20 + "px";
+            
+            // Duración de la caída aleatoria entre 3 y 5 segundos
+            const duration = Math.random() * 2 + 3;
+            heart.style.animationDuration = duration + "s";
+            
+            // Opacidad aleatoria
+            heart.style.opacity = Math.random();
+
+            document.body.appendChild(heart);
+
+            // Borrar el corazón después de que termine la animación
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // Crear un corazón cada 300 milisegundos
+        setInterval(createHeart, 300);
+    </script>
 </body>
 </html>
