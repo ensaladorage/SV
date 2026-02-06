@@ -21,6 +21,7 @@ function onYouTubeIframeAPIReady() {
 
 function onPlayerReady(event) {
     // El reproductor está cargado
+    event.target.setVolume(50);
 }
 
 const iniciarMusica = () => {
