@@ -1,74 +1,36 @@
 let player;
-let musicStarted = false;
-
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-        height: '0',
-        width: '0',
-        videoId: 'jkxgmnsqaV8', 
-        playerVars: {
-            'autoplay': 1,
-            'loop': 1,
-            'playlist': 'jkxgmnsqaV8',
-            'start': 10 
-        },
-        events: {
-            'onReady': (event) => { event.target.setVolume(50); }
-        }
+        height: '0', width: '0', videoId: 'jkxgmnsqaV8',
+        playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': 'jkxgmnsqaV8', 'start': 10 },
+        events: { 'onReady': (e) => e.target.setVolume(50) }
     });
 }
-
 function abrirInvitacion() {
-    if (player && player.playVideo) {
-        player.playVideo();
-        musicStarted = true;
-    }
+    if (player && player.playVideo) player.playVideo();
     document.getElementById('envelope-container').style.display = 'none';
-    const mainContainer = document.getElementById('main-container');
-    mainContainer.style.display = 'flex';
-    mainContainer.classList.add('fade-in');
+    const main = document.getElementById('main-container');
+    main.style.display = 'flex'; main.classList.add('fade-in');
 }
-
 document.addEventListener('DOMContentLoaded', () => {
-    const yesBtn = document.getElementById('yes-btn');
     const noBtn = document.getElementById('no-btn');
-
     const moveButton = () => {
-        const btnWidth = noBtn.offsetWidth;
-        const btnHeight = noBtn.offsetHeight;
-        const maxLeft = window.innerWidth - btnWidth - 20;
-        const maxTop = window.innerHeight - btnHeight - 20;
-
-        noBtn.style.position = 'fixed';
-        noBtn.style.left = `${Math.floor(Math.random() * maxLeft)}px`;
-        noBtn.style.top = `${Math.floor(Math.random() * maxTop)}px`;
-        noBtn.style.zIndex = "9999";
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
+        noBtn.style.position = 'fixed'; noBtn.style.left = `${x}px`; noBtn.style.top = `${y}px`;
     };
-
     noBtn.addEventListener('mouseover', moveButton);
-    noBtn.addEventListener('click', (e) => { e.preventDefault(); moveButton(); });
-
-    yesBtn.addEventListener('click', () => {
+    document.getElementById('yes-btn').addEventListener('click', () => {
         document.getElementById('main-container').style.display = 'none';
-        const confirmContainer = document.getElementById('confirmation-container');
-        confirmContainer.style.display = 'flex';
-        confirmContainer.classList.add('fade-in');
-        lanzarCorazones();
+        const conf = document.getElementById('confirmation-container');
+        conf.style.display = 'flex'; conf.classList.add('fade-in');
+        setInterval(crearCorazon, 300);
     });
 });
-
-function lanzarCorazones() {
-    setInterval(() => {
-        const heart = document.createElement('div');
-        heart.innerHTML = '❤️';
-        heart.style.cssText = `
-            position: fixed; top: -10vh; z-index: 1; pointer-events: none;
-            left: ${Math.random() * 100}vw;
-            font-size: ${Math.random() * 20 + 20}px;
-            transition: transform ${Math.random() * 2 + 3}s linear;
-        `;
-        document.body.appendChild(heart);
-        setTimeout(() => { heart.style.transform = `translateY(115vh)`; }, 100);
-        setTimeout(() => { heart.remove(); }, 5000);
-    }, 300);
+function crearCorazon() {
+    const h = document.createElement('div'); h.innerHTML = '❤️';
+    h.style.cssText = `position:fixed; top:-10vh; left:${Math.random()*100}vw; font-size:${Math.random()*20+20}px; transition:4s linear; z-index:1;`;
+    document.body.appendChild(h);
+    setTimeout(() => h.style.transform = 'translateY(110vh)', 100);
+    setTimeout(() => h.remove(), 4500);
 }
