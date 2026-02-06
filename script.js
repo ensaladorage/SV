@@ -8,7 +8,8 @@ function onYouTubeIframeAPIReady() {
         width: '0',
         videoId: 'jkxgmnsqaV8',
         playerVars: {
-            'autoplay': 1,
+            'autoplay': 0,     // <--- CAMBIO IMPORTANTE: 0 para que no arranque solo
+            'controls': 0,     // Ocultamos controles por si acaso
             'loop': 1,
             'playlist': 'jkxgmnsqaV8',
             'start': 10
@@ -23,10 +24,12 @@ function onYouTubeIframeAPIReady() {
 
 // Función para abrir el sobre e iniciar todo
 function abrirInvitacion() {
+    // Aquí es donde forzamos el Play
     if (player && player.playVideo) {
         player.playVideo();
         musicStarted = true;
     }
+    
     document.getElementById('envelope-container').style.display = 'none';
     const mainContainer = document.getElementById('main-container');
     mainContainer.style.display = 'flex';
@@ -42,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
         const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
         
+        // Solo cambiamos a fixed cuando se intenta tocar
         noBtn.style.position = 'fixed';
         noBtn.style.left = `${x}px`;
         noBtn.style.top = `${y}px`;
@@ -74,7 +78,7 @@ function crearCorazon() {
         left: ${Math.random() * 100}vw;
         font-size: ${Math.random() * 20 + 20}px;
         transition: 4s linear;
-        z-index: 1;
+        z-index: 1000;
         pointer-events: none;
     `;
     document.body.appendChild(heart);
