@@ -134,12 +134,25 @@ body, html {
     bottom: 20px;
     left: 20px;
     background: rgba(255, 255, 255, 0.9);
-    padding: 10px 20px;
+    padding: 12px 20px;
     border-radius: 15px;
-    font-size: 1.5rem;
-    color: #e91e63;
-    font-weight: bold;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     z-index: 2000;
     font-family: 'Segoe UI', sans-serif;
+    text-align: center; /* Centra el texto dentro de la cajita */
+}
+
+#game-instruction {
+    font-size: 0.85rem;      /* Más pequeño para que parezca una instrucción */
+    color: #ad1457;          /* Un tono granate suave */
+    margin-bottom: 5px;      /* Separación con el contador */
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#score-wrapper {
+    font-size: 1.5rem;
+    color: #e91e63;          /* El rosa vibrante para el número */
+    font-weight: bold;
 }
