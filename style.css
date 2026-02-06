@@ -89,7 +89,7 @@ body, html {
 /* Para controlar específicamente el espacio de cada línea */
 #details p {
     margin: 0;                /* Quitamos márgenes por defecto para que el gap mande */
-    line-height: 1.6;         /* Aumentamos el interlineado del texto */
+    line-height: 3;         /* Aumentamos el interlineado del texto */
     font-size: 1.05rem;       /* Un pelín más grande para que sea legible */
 }
 
