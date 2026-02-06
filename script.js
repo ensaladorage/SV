@@ -46,7 +46,7 @@ function crearCorazon() {
     heart.innerHTML = '❤️';
     heart.style.cssText = `
         position: fixed; top: -10vh; left: ${Math.random() * 100}vw;
-        font-size: ${Math.random() * 30 + 20}px; 
+        font-size: ${Math.random() * 60 + 40}px; 
         transition: top 4s linear, transform 0.2s; 
         z-index: 1000; cursor: crosshair; user-select: none;
     `;
@@ -72,7 +72,7 @@ function crearCorazon() {
         if (score > 100 && !gifChanged) {
             gifChanged = true;
             // Cambiamos la imagen del perro por la nueva
-            document.getElementById('confirmed-gif').src = 'perro_final.gif';
+            document.getElementById('confirmed-gif').src = 'love.gif';
             console.log("¡GIF FINAL DESBLOQUEADO!");
         }
 
