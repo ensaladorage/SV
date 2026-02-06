@@ -6,16 +6,34 @@ let currentLevel = 0; // Usaremos niveles en lugar de booleanos
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '0', width: '0', videoId: 'jkxgmnsqaV8',
-        playerVars: { 'autoplay': 0, 'controls': 0, 'loop': 1, 'playlist': 'jkxgmnsqaV8', 'start': 10 },
-        events: { 'onReady': (e) => e.target.setVolume(40) }
+        playerVars: { 
+            'autoplay': 0, 
+            'controls': 0, 
+            'loop': 1, 
+            'playlist': 'jkxgmnsqaV8', 
+            'start': 10,
+            'playsinline': 1 // <--- CRUCIAL PARA MÓVILES
+        },
+        events: { 
+            'onReady': (e) => {
+                e.target.mute(); // Empezamos muteados para que el móvil no bloquee
+                e.target.setVolume(50);
+            }
+        }
     });
 }
 
+// 2. Abrir el sobre
 function abrirInvitacion() {
-    if (player && player.playVideo) player.playVideo();
+    if (player && player.playVideo) {
+        player.unMute(); // Desmuteamos justo al hacer clic
+        player.playVideo();
+    }
+    
     document.getElementById('envelope-container').style.display = 'none';
     const main = document.getElementById('main-container');
-    main.style.display = 'flex'; main.classList.add('fade-in');
+    main.style.display = 'flex'; 
+    main.classList.add('fade-in');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
