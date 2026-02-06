@@ -75,11 +75,29 @@ body, html {
 
 #details {
     background: white;
-    padding: 20px;
+    padding: 30px;            /* Aumentamos el relleno interno de la caja */
     border-radius: 20px;
     text-align: left;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     color: #880e4f;
+    min-width: 280px;         /* Le damos un poco más de ancho base */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;                /* <--- ESTO separa los párrafos entre sí */
+}
+
+/* Para controlar específicamente el espacio de cada línea */
+#details p {
+    margin: 0;                /* Quitamos márgenes por defecto para que el gap mande */
+    line-height: 1.6;         /* Aumentamos el interlineado del texto */
+    font-size: 1.05rem;       /* Un pelín más grande para que sea legible */
+}
+
+/* El texto de "¡Será un día inolvidable!" un poco más separado */
+.footer-text {
+    margin-top: 10px !important;
+    font-style: italic;
+    text-align: center;
 }
 
 /* --- AQUÍ ESTÁN LAS ANIMACIONES DEL SOBRE --- */
