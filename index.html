@@ -12,7 +12,7 @@
         <h1 class="main-text">¡Tienes una invitación! 💌</h1>
         <div id="envelope" onclick="abrirInvitacion()">
             <div class="envelope-icon">✉️</div>
-            <p>Haz clic en el sobre para abrirla</p>
+            <p>Haz clic para abrir</p>
         </div>
     </div>
 
@@ -29,7 +29,7 @@
     <div id="confirmation-container" class="container" style="display: none;">
         <h1 class="main-text">¡Vaaaaaaaamos! ❤️</h1>
         
-        <img id="confirmed-gif" src="perro.gif" alt="Party Dog">
+        <img id="confirmed-gif" src="perro.gif" alt="Celebración">
 
         <div id="details">
             <p><strong>📍 Lugar:</strong> [Tu lugar]</p>
@@ -38,6 +38,12 @@
         </div>
         <p class="footer-text">¡Un besitooo!</p>
     </div>
+
+    <div id="score-container" style="display: none;">
+        Corazones: <span id="score">0</span>
+    </div>
+
+    <audio id="pop-sound" src="pop.mp3"></audio>
 
     <div style="display: none;">
         <div id="player"></div>
