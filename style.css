@@ -84,3 +84,18 @@ body, html {
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 .fade-in { animation: fadeIn 0.8s ease-in forwards; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+#confirmed-gif {
+    width: 250px;           /* Controla el ancho del gif */
+    height: auto;           /* Mantiene la proporción */
+    border-radius: 20px;    /* Bordes redondeados para que combine */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    margin: 10px 0;
+}
+
+/* Ajuste para que en pantallas pequeñas el gif no sea muy grande */
+@media (max-width: 600px) {
+    #confirmed-gif {
+        width: 180px;
+    }
+}
