@@ -16,7 +16,7 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 700px;
+    gap: 20px;
     padding: 20px;
 }
 
@@ -28,7 +28,7 @@ body, html {
 
 .buttons-container {
     display: flex;
-    gap: 50px;
+    gap: 200px;
     align-items: center;
     min-width: 350px;
     justify-content: center;
