@@ -1,8 +1,7 @@
 let player;
 let score = 0;
-let heartInterval; // Variable para controlar la velocidad de los corazones
-let tripleModeActive = false;
-let gifChanged = false;
+let heartInterval; 
+let currentLevel = 0; // Usaremos niveles en lugar de booleanos
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
@@ -33,10 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('main-container').style.display = 'none';
         const conf = document.getElementById('confirmation-container');
         conf.style.display = 'flex'; conf.classList.add('fade-in');
-        
         document.getElementById('score-container').style.display = 'block';
         
-        // Guardamos el intervalo en la variable para poder cambiarlo luego
         heartInterval = setInterval(crearCorazon, 400); 
     });
 });
@@ -46,7 +43,7 @@ function crearCorazon() {
     heart.innerHTML = '❤️';
     heart.style.cssText = `
         position: fixed; top: -10vh; left: ${Math.random() * 100}vw;
-        font-size: ${Math.random() * 60 + 40}px; 
+        font-size: ${Math.random() * 40 + 30}px; 
         transition: top 4s linear, transform 0.2s; 
         z-index: 1000; cursor: crosshair; user-select: none;
     `;
@@ -58,53 +55,32 @@ function crearCorazon() {
         score++;
         document.getElementById('score').innerText = score;
 
-        // --- NUEVA LÓGICA DE NIVELES ---
+        // --- LÓGICA DE NIVELES MEJORADA ---
 
-        // NIVEL 1: Superar los 20 corazones (Modo Triple)
-        if (score > 20 && !tripleModeActive) {
-            tripleModeActive = true;
-            clearInterval(heartInterval); // Detenemos el ritmo normal
-            heartInterval = setInterval(crearCorazon, 130); // ¡Ritmo triple! (400 / 3 aprox)
-            console.log("¡MODO TRIPLE ACTIVADO!");
-        }
-        // NIVEL 2: Superar los 20 corazones (Modo Triple)
-        if (score > 50 && !tripleModeActive) {
-            tripleModeActive = true;
-            clearInterval(heartInterval); // Detenemos el ritmo normal
-            heartInterval = setInterval(crearCorazon, 230); // ¡más!
-            console.log("¡MODO TRIPLE ACTIVADO!");
-        }
-
-        // NIVEL 2: Superar los 100 corazones (Cambio de GIF)
-        if (score > 20 && !gifChanged) {
-            gifChanged = true;
-            // Cambiamos la imagen del perro por la nueva
+        // Nivel 1: 20 corazones
+        if (score === 20) {
+            clearInterval(heartInterval);
+            heartInterval = setInterval(crearCorazon, 150); // Lluvia rápida
             document.getElementById('confirmed-gif').src = 'love.gif';
-            console.log("¡GIF FINAL DESBLOQUEADO!");
-        }
-        // NIVEL 3: Superar los 100 corazones (Cambio de GIF)
-        if (score > 30 && !gifChanged) {
-            gifChanged = true;
-            // Cambiamos la imagen del perro por la nueva
+            console.log("Nivel 1: Love!");
+        } 
+        // Nivel 2: 30 corazones
+        else if (score === 30) {
             document.getElementById('confirmed-gif').src = 'pingu.gif';
-            console.log("¡GIF FINAL DESBLOQUEADO!");
-        }
-        // NIVEL 4: Superar los 100 corazones (Cambio de GIF)
-        if (score > 40 && !gifChanged) {
-            gifChanged = true;
-            // Cambiamos la imagen del perro por la nueva
+            console.log("Nivel 2: Pingu!");
+        } 
+        // Nivel 3: 40 corazones
+        else if (score === 40) {
             document.getElementById('confirmed-gif').src = 'cat.gif';
-            console.log("¡GIF FINAL DESBLOQUEADO!");
-        }
-                // NIVEL 5: Superar los 100 corazones (Cambio de GIF)
-        if (score > 50 && !gifChanged) {
-            gifChanged = true;
-            // Cambiamos la imagen del perro por la nueva
+            console.log("Nivel 3: Cat!");
+        } 
+        // Nivel 4: 50 corazones
+        else if (score === 50) {
+            clearInterval(heartInterval);
+            heartInterval = setInterval(crearCorazon, 80); // ¡Modo Locura!
             document.getElementById('confirmed-gif').src = 'duck.gif';
-            console.log("¡GIF FINAL DESBLOQUEADO!");
+            console.log("Nivel 4: Duck madness!");
         }
-
-        // -------------------------------
         
         heart.style.transform = "scale(1.5)";
         heart.style.opacity = "0";
