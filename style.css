@@ -196,3 +196,60 @@ body, html {
     margin: 0; /* Quitamos márgenes sobrantes */
     min-width: 250px;
 }
+
+/* Estilo de la Tarjeta de Previsualización */
+.location-card {
+    display: block;
+    width: 300px;
+    background: white;
+    border-radius: 25px; /* Bordes muy redondeados como en la imagen */
+    overflow: hidden;
+    text-decoration: none; /* Quita el subrayado del enlace */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.location-card:hover {
+    transform: translateY(-5px); /* Pequeño salto al pasar el ratón */
+}
+
+.card-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover; /* Ajusta la imagen sin deformarla */
+}
+
+.card-content {
+    padding: 20px;
+    text-align: left;
+}
+
+.card-content h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.card-content p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.maps-link {
+    display: block;
+    margin-top: 10px;
+    color: #1a73e8; /* Azul típico de Google Maps */
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Ajuste del texto de la broma */
+#joke-text {
+    color: #e91e63;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
