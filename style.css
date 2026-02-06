@@ -89,8 +89,7 @@ body, html {
     cursor: pointer;
     background: none;
     padding: 0px;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 0px;
     /* Esto suaviza la animación */
     transition: transform 0.3s ease; 
 }
