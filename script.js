@@ -1,35 +1,37 @@
 let player;
 let musicStarted = false;
 
-// 1. Configuración de la API de YouTube
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '0',
         width: '0',
-        videoId: 'jkxgmnsqaV8', 
+        videoId: 'jkxgmnsqaV8', // <--- CAMBIA TU ID
         playerVars: {
             'autoplay': 1,
             'loop': 1,
             'playlist': 'jkxgmnsqaV8',
-            'start': 10  // <--- AÑADE ESTA LÍNEA (el número son los segundos)
+            'start': 10 
         },
         events: {
-            'onReady': onPlayerReady
+            'onReady': (event) => { event.target.setVolume(50); }
         }
     });
 }
 
-function onPlayerReady(event) {
-    // El reproductor está cargado
-    event.target.setVolume(50);
-}
-
-const iniciarMusica = () => {
-    if (!musicStarted && player && player.playVideo) {
+// ESTA FUNCIÓN ES LA CLAVE: Se activa al hacer clic en el sobre
+function abrirInvitacion() {
+    // 1. Iniciar música
+    if (player && player.playVideo) {
         player.playVideo();
         musicStarted = true;
     }
-};
+
+    // 2. Transición de pantallas
+    document.getElementById('envelope-container').style.display = 'none';
+    const mainContainer = document.getElementById('main-container');
+    mainContainer.style.display = 'flex';
+    mainContainer.classList.add('fade-in');
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const yesBtn = document.getElementById('yes-btn');
@@ -37,65 +39,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContainer = document.getElementById('main-container');
     const confirmContainer = document.getElementById('confirmation-container');
 
-    // Lógica para que el botón NO escape
     const moveButton = () => {
-        iniciarMusica(); // La música empieza al intentar darle al NO
-        
         const padding = 20;
-        const btnWidth = noBtn.offsetWidth;
-        const btnHeight = noBtn.offsetHeight;
-        
-        const maxLeft = window.innerWidth - btnWidth - padding;
-        const maxTop = window.innerHeight - btnHeight - padding;
-
-        const randomLeft = Math.max(padding, Math.random() * maxLeft);
-        const randomTop = Math.max(padding, Math.random() * maxTop);
-
+        const maxLeft = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxTop = window.innerHeight - noBtn.offsetHeight - padding;
         noBtn.style.position = 'fixed';
-        noBtn.style.left = `${randomLeft}px`;
-        noBtn.style.top = `${randomTop}px`;
+        noBtn.style.left = `${Math.max(padding, Math.random() * maxLeft)}px`;
+        noBtn.style.top = `${Math.max(padding, Math.random() * maxTop)}px`;
     };
 
     noBtn.addEventListener('mouseover', moveButton);
-    noBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        moveButton();
-    });
+    noBtn.addEventListener('click', (e) => { e.preventDefault(); moveButton(); });
 
-    // Lógica para el botón SÍ
     yesBtn.addEventListener('click', () => {
-        iniciarMusica(); // La música empieza (si no lo hizo ya)
-        
-        // Cambiar de pantalla sin recargar
         mainContainer.style.display = 'none';
         confirmContainer.style.display = 'flex';
-        
+        confirmContainer.classList.add('fade-in');
         lanzarCorazones();
     });
 });
 
-// Función para la lluvia de corazones
 function lanzarCorazones() {
     setInterval(() => {
         const heart = document.createElement('div');
-        heart.classList.add('heart');
         heart.innerHTML = '❤️';
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = Math.random() * 20 + 20 + "px";
-        heart.style.duration = Math.random() * 2 + 3 + "s";
-        
-        // Animación simple de caída
-        const animationDuration = Math.random() * 2 + 3;
-        heart.style.transition = `transform ${animationDuration}s linear`;
-        
+        heart.style.cssText = `
+            position: fixed; top: -10vh; z-index: 1; pointer-events: none;
+            left: ${Math.random() * 100}vw;
+            font-size: ${Math.random() * 20 + 20}px;
+            transition: transform ${Math.random() * 2 + 3}s linear;
+        `;
         document.body.appendChild(heart);
-
-        setTimeout(() => {
-            heart.style.transform = `translateY(115vh)`;
-        }, 100);
-
-        setTimeout(() => {
-            heart.remove();
-        }, animationDuration * 1000 + 100);
+        setTimeout(() => { heart.style.transform = `translateY(115vh)`; }, 100);
+        setTimeout(() => { heart.remove(); }, 5000);
     }, 300);
 }
