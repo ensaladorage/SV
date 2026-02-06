@@ -69,7 +69,7 @@ function crearCorazon() {
         }
 
         // NIVEL 2: Superar los 100 corazones (Cambio de GIF)
-        if (score > 100 && !gifChanged) {
+        if (score > 50 && !gifChanged) {
             gifChanged = true;
             // Cambiamos la imagen del perro por la nueva
             document.getElementById('confirmed-gif').src = 'love.gif';
