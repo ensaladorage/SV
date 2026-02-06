@@ -1,12 +1,14 @@
 let player;
-let musicStarted = false;
-let score = 0; // Variable para contar puntos
+let score = 0;
+let heartInterval; // Variable para controlar la velocidad de los corazones
+let tripleModeActive = false;
+let gifChanged = false;
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '0', width: '0', videoId: 'jkxgmnsqaV8',
         playerVars: { 'autoplay': 0, 'controls': 0, 'loop': 1, 'playlist': 'jkxgmnsqaV8', 'start': 10 },
-        events: { 'onReady': (e) => e.target.setVolume(50) }
+        events: { 'onReady': (e) => e.target.setVolume(40) }
     });
 }
 
@@ -32,18 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const conf = document.getElementById('confirmation-container');
         conf.style.display = 'flex'; conf.classList.add('fade-in');
         
-        // Mostrar el contador
         document.getElementById('score-container').style.display = 'block';
         
-        // Iniciar minijuego
-        setInterval(crearCorazon, 400); // Un poco más rápido para jugar
+        // Guardamos el intervalo en la variable para poder cambiarlo luego
+        heartInterval = setInterval(crearCorazon, 400); 
     });
 });
 
 function crearCorazon() {
     const heart = document.createElement('div');
     heart.innerHTML = '❤️';
-    // IMPORTANTE: pointer-events: auto permite hacer clic
     heart.style.cssText = `
         position: fixed; top: -10vh; left: ${Math.random() * 100}vw;
         font-size: ${Math.random() * 30 + 20}px; 
@@ -51,30 +51,39 @@ function crearCorazon() {
         z-index: 1000; cursor: crosshair; user-select: none;
     `;
     
-    // Función al hacer clic en el corazón
     heart.onclick = function() {
-        // Sonido
         const audio = document.getElementById('pop-sound');
-        if (audio) {
-            audio.currentTime = 0; // Reinicia el sonido si pulsas muy rápido
-            audio.play();
-        }
+        if (audio) { audio.currentTime = 0; audio.play(); }
         
-        // Sumar puntos
         score++;
         document.getElementById('score').innerText = score;
+
+        // --- NUEVA LÓGICA DE NIVELES ---
+
+        // NIVEL 1: Superar los 20 corazones (Modo Triple)
+        if (score > 20 && !tripleModeActive) {
+            tripleModeActive = true;
+            clearInterval(heartInterval); // Detenemos el ritmo normal
+            heartInterval = setInterval(crearCorazon, 130); // ¡Ritmo triple! (400 / 3 aprox)
+            console.log("¡MODO TRIPLE ACTIVADO!");
+        }
+
+        // NIVEL 2: Superar los 100 corazones (Cambio de GIF)
+        if (score > 100 && !gifChanged) {
+            gifChanged = true;
+            // Cambiamos la imagen del perro por la nueva
+            document.getElementById('confirmed-gif').src = 'perro_final.gif';
+            console.log("¡GIF FINAL DESBLOQUEADO!");
+        }
+
+        // -------------------------------
         
-        // Efecto visual de explosión
         heart.style.transform = "scale(1.5)";
         heart.style.opacity = "0";
-        
-        // Eliminar del DOM un pelín después
         setTimeout(() => heart.remove(), 200);
     };
 
     document.body.appendChild(heart);
-
-    // Animación de caída
     setTimeout(() => { heart.style.top = '110vh'; }, 100);
     setTimeout(() => { if(heart.parentNode) heart.remove(); }, 4100);
 }
