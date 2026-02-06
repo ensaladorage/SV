@@ -6,9 +6,9 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fce4ec; /* Fondo rosa claro */
-    font-family: 'Segoe UI', Arial, sans-serif;
-    overflow: hidden; 
+    background-color: #fce4ec; /* Rosa claro */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
 }
 
 .container {
@@ -18,6 +18,7 @@ body, html {
     align-items: center;
     gap: 40px;
     padding: 20px;
+    z-index: 10;
 }
 
 .main-text {
@@ -25,20 +26,15 @@ body, html {
     color: #880e4f;
     margin: 0;
     line-height: 1.2;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .buttons-container {
     display: flex;
-    gap: 30px; /* Reducido un poco para que se vean más juntos al inicio */
+    gap: 30px;
     align-items: center;
     justify-content: center;
-    position: relative;
-    min-height: 80px;
-}
-
-#no-btn-wrapper {
-    display: inline-block;
+    min-height: 100px;
 }
 
 .btn {
@@ -49,36 +45,66 @@ body, html {
     border-radius: 50px;
     color: white;
     font-weight: bold;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.2s ease;
-    margin: 0;
 }
 
 #yes-btn {
-    background-color: #e91e63; /* Rosa fuerte/Rojizo */
-    animation: pulse 1.5s infinite; /* Efecto de latido */
+    background-color: #e91e63;
+    animation: pulse 1.5s infinite;
 }
 
 #yes-btn:hover {
+    transform: scale(1.1);
     background-color: #d81b60;
-    transform: scale(1.15);
 }
 
 #no-btn {
-    background-color: #9e9e9e; /* Gris para que parezca menos importante que el SI */
-    position: relative; /* Importante para el cálculo inicial de JS */
-    z-index: 100;
+    background-color: #9e9e9e;
+    z-index: 1000;
 }
 
-/* Animación de pulso para el botón SI */
+/* Estilos de la caja de detalles en la confirmación */
+#details {
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    color: #880e4f;
+    font-size: 1.2rem;
+    text-align: left;
+}
+
+#details p {
+    margin: 15px 0;
+}
+
+.footer-text {
+    color: #ad1457;
+    font-weight: bold;
+}
+
+/* Animaciones */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
 
-/* Responsividad básica para móviles */
-@media (max-width: 600px) {
-    .main-text { font-size: 1.8rem; }
-    .btn { padding: 12px 30px; font-size: 1.2rem; }
+#confirmation-container {
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Corazones cayendo */
+.heart {
+    position: fixed;
+    top: -10vh;
+    user-select: none;
+    z-index: 1;
+    pointer-events: none;
 }
